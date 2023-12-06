@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@section Scripts {
+    <!--<script src="~/lib/fullcalender/core/index.global.js"></script>-->
+    <!--<script src="~/lib/fullcalender/core/index.global.min.js"></script>-->
+    
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: [/*'timeGridWeek',*/'timeGridDay'], weekends: false, titleFormat: {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+                //günlük , aylık ve haftalı kgörünümle alaklı çalışıyorsun video 22 de kaldım 
+                
+               
+            });
+            calendar.render();
+        });
+
+    </script>
+}
+
+@section Styles
+{
+    <script src="~/lib/fullcalender/core/locales/tr.global.min.js"></script>
+    <script src="~/lib/fullcalender/core/locales/tr.global.js"></script>
+       
+    <div id='calendar'>
+    </div>
+   
+}
+
+
