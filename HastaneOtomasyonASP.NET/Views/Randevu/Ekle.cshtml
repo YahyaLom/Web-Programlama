@@ -1,0 +1,62 @@
+﻿@model Randevu
+<h2>Randevu Ekleme Sayfasi</h2>
+
+<form method="post">
+
+
+	<div class="border p-3 mt-5">
+
+		<div class="row pb-3  form-group">
+			<h2 class="text-primary "><strong>Randevu </strong> </h2>
+			</hr>
+		</div>
+		@* HASTALARI CEKİYORUZ *@
+		<div class="form-group">
+			<label asp-for="HastaId" class="p-0">Hastalar</label>
+			<select asp-for="HastaId" asp-items="ViewBag.HastaList" name="HastaId" class="form-select">
+			</select>
+		</div>
+
+		@*  Doktorlari CEKİYORUZ  *@
+		<div class="form-group">
+			<label asp-for="DoktorId" class="p-0">Doktorlar</label>
+			<select asp-for="DoktorId" asp-items="ViewBag.DoktorList" name="DoktorId" class="form-select">
+			</select>
+		</div> 
+		
+		<div class="mb-3  form-group"
+		<label asp-for="Tarih">Randevu Tarihi</label>
+		<input asp-for="Tarih"  class="form-control">
+		<span asp-validation-for="Tarih" class="text-danger"></span>
+		</div>
+
+	
+
+		@*  Polikinlikleri CEKİYORUZ  *@
+		<div class="form-group">
+			<label asp-for="PolikinlikId" class="p-0">Polikinlik</label>
+			<select asp-for="PolikinlikId" asp-items="ViewBag.PolikinlikList"   class="form-select">
+			</select>
+		</div>
+
+		<div class="mb-3  form-group"
+		<label asp-for="Aciklama"> Açıklama</label>
+		<input asp-for="Aciklama"  class="form-control">
+		<span asp-validation-for="Aciklama" class="text-danger"></span>
+		</div>
+		
+
+		<button type="submit" class="btn btn-outline-primary" style="width:250px">Randevu Al</button>
+
+		<a asp-controller="Randevu" asp-action="Index" class="btn btn-outline-primary style="width:250px">
+			Randuvular Listesi
+		</a>
+
+	</div>
+
+
+
+
+
+
+</form>

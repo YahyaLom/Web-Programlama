@@ -1,0 +1,51 @@
+﻿@model Doktor
+<h2>Doktor Sil Sayfasi</h2>
+
+<form method="post">
+
+	@* <input asp-for="DoktorId" hidden/> *@
+
+	<div class="border p-3 mt-5">
+
+		<div class="row pb-3  form-group">
+			<h2 class="text-primary "><strong>Doktor Sil</strong> </h2>
+			</hr>
+		</div>
+
+
+		<div class="mb-3  form-group"
+		<label asp-for="Ad"></label>
+		<input asp-for="Ad"  disabled class="form-control">
+		</div>
+
+		<div class="mb-3  form-group"
+		<label asp-for=Soyad></label>
+		<input asp-for="Soyad" disabled class="form-control">
+		</div>
+
+		<div class="mb-3 form-group"
+		<label asp-for="Alan">Alan</label>
+		<input asp-for="Alan" disabled class="form-control">
+		</div>
+
+
+		<div class="form-group">
+			@* <label asp-for="ResimURL" class="p-0"></label> *@
+			<input type="file" disabled name="file" class="form-control" />
+		</div>
+		<br />
+
+		<button type="submit" class="btn btn-outline-primary" style="width:250px">Doktor Sil</button>
+
+		<a asp-controller="Doktor" asp-action="Index" class="btn btn-outline-primary style="width:250px">
+			Doktorlar Listesine Dön
+		</a>
+
+	</div>
+
+
+
+
+
+
+</form>

@@ -1,0 +1,121 @@
+﻿@model List<Hasta>
+<h1>Hastalar Sayfasi</h1>
+
+@if (@TempData["basarili"]!=null)
+{
+	<div class="alert alert-dismissible alert-success">
+		<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		<strong>Tebrikler!</strong> <a href="#" class="alert-link">@TempData["basarili"]</a>.
+	</div>
+}
+
+<div class="container">
+
+	<div class="row pt-3 pb-4">
+
+		<h3><strong>Hastalar Listesi</strong></h3>
+
+	</div>
+
+	<table class="table table-bordered"
+
+	<tr>
+
+		<thead>
+
+				<th>
+					Id
+				</th>
+
+				<th>
+					Ad
+				</th>
+
+				<th>
+					Soyad
+				</th>
+
+				<th>
+					Telefon
+				</th>
+
+				<th>
+					Açıklama
+				</th>
+
+				<th>
+					@* guncelle *@
+				</th>
+
+				<th>
+					@* ekle *@
+				</th>
+		</thead>
+		<tbody>
+				@foreach (var hasta in Model)
+				{
+						<tr>
+
+							<th>
+							@hasta.Id
+							</th>
+
+							<th>
+							@hasta.Ad
+							</th>
+
+							<th>
+							@hasta.Soyad
+							</th>
+
+							<th>
+							@hasta.Telefon
+							</th>
+							<th>
+							@hasta.Aciklama
+							</th>
+							
+
+							<th>
+								<a asp-controller="Hasta" asp-action="Guncelle" asp-route-id=@hasta.Id class="btn btn-outline-success">Güncelle</a>
+
+							</th>
+
+
+							
+
+							<th>
+								<a asp-controller="Hasta" asp-action="Sil" asp-route-id="@hasta.Id" class="btn btn-outline-primary">Sİl</a>
+								
+							</th>
+
+
+						</tr>
+
+				}
+		</tbody>
+		
+
+
+	</tr>
+
+
+</table>
+
+	<div class="row pt-3 pb-2">
+
+		<div>
+			<div class="d-grid gap-2">
+				<a asp-controller="Hasta" asp-action="Ekle" class="btn btn-lg btn-outline-primary" type="button"> Hasta Ekle  </a>
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+

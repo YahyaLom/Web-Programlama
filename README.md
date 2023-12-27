@@ -1,2 +1,2 @@
-# Web-Programlama
- MVC ile Hastane Otomasyonu
+# HastaneOtomasyonASP.NET
+Web Programlama Proje 
