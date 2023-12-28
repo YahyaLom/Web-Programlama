@@ -11,6 +11,7 @@ namespace HastaneOtomasyonASP.NET.Utility
 		public DbSet<Hasta> Hastalar { get; set; }
 		public DbSet<Randevu> Randevular { get; set; }
 		public DbSet<Polikinlik> Polikinlikler { get; set; }
+		public DbSet<CalismaSaati> CalismaSaatleri { get; set; }
 
 
 

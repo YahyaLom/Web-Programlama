@@ -17,12 +17,23 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			_webHostEnvironment = webHostEnvironment;
 		}
 
+		//public IActionResult Index()
+		//{
+		//	List<Doktor>objDoktorList= _doktorRepository.GetAll().ToList();//veritabanına _uygulamadbcontex ile baglanıp doktorlar listesi alıyoruz.
+		//	return View(objDoktorList);//view'ev Dokorlar Listesi gönderiyoruz.
+		//}
+
 		public IActionResult Index()
 		{
-			List<Doktor>objDoktorList= _doktorRepository.GetAll().ToList();//veritabanına _uygulamadbcontex ile baglanıp doktorlar listesi alıyoruz.
+			List<Doktor> objDoktorList = _doktorRepository.GetAll().ToList();//veritabanına _uygulamadbcontex ile baglanıp doktorlar listesi alıyoruz.//doktorun tum ozellikler objDoktorList içerir
+			foreach (var doktor in objDoktorList)
+			{
+				doktor.CalismaSaatleri = _doktorRepository.GetDoktorCalismaSaatleri(doktor.Id);
+			}
 			return View(objDoktorList);//view'ev Dokorlar Listesi gönderiyoruz.
 		}
-		
+
+
 		public IActionResult EkleGuncelle(int? id)
 		{
 			//comboox hasta id seçiliyo

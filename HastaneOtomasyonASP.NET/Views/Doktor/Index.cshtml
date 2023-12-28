@@ -43,6 +43,10 @@
 				</th>
 
 				<th>
+					Calisma Saatleri
+				</th>
+
+				<th>
 					@* guncelle *@
 				</th>
 
@@ -76,6 +80,29 @@
 
 							<th>
 							@doktor.Alan
+							</th>
+
+							<th>
+								@* Calisma Saatleri*@
+								@if (doktor.CalismaSaatleri!=null && doktor.CalismaSaatleri.Any())
+								{
+									<ul>
+											@foreach (var saat in doktor.CalismaSaatleri)
+											{
+												<li>@saat.Saat</li>
+
+											}
+
+									</ul>
+								
+								}
+								else
+								{
+									<p>bululnamadi</p>
+								}
+
+
+									
 							</th>
 
 							<th align="center" valign="middle">

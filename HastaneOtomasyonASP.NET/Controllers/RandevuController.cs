@@ -1,6 +1,8 @@
-﻿using HastaneOtomasyonASP.NET.Models;
+﻿using HastaneOtomasyonASP.NET.Migrations;
+using HastaneOtomasyonASP.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HastaneOtomasyonASP.NET.Controllers
 {
@@ -72,6 +74,12 @@ namespace HastaneOtomasyonASP.NET.Controllers
 		
 		}
 
+		//CALISMASAATLERI DKTOR
+		public JsonResult LoadState(int doktorId)
+		{
+			var calismaSaatleri=_doktorRepository.GetDoktorCalismaSaatleri(doktorId);
+			return Json(calismaSaatleri);
+		}
 
 	}
 }

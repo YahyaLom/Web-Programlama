@@ -34,7 +34,7 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			{
 				_hastaRepository.Ekle(hasta);//ekleme
 				_hastaRepository.Kaydet();//kaydetme
-				TempData["basarili"] = "yeni doktor listeye başarıyla eklendi.";//kullanıcı mesaj
+				TempData["basarili"] = "yeni hasta listeye başarıyla eklendi.";//kullanıcı mesaj
 				return RedirectToAction("Index");//Listele geri donuyor.
 
 			}

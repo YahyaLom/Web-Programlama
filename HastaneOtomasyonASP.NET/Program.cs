@@ -16,6 +16,9 @@ builder.Services.AddScoped<IHastaRepository, HastaRepository>();
 builder.Services.AddScoped<IRandevuRepository,RandevuRepository>();
 //RandevuRepo Oluþturmaya yardýcý oluyor
 builder.Services.AddScoped<IPolikinlikRepository, PolikinlikRepository>();
+//CalismaSaati Repo Oluþturmaya yardýcý oluyor
+builder.Services.AddScoped<ICalismaSaatiRepository, CalismaSaatiRepository>();
+
 
 
 var app = builder.Build();

@@ -19,15 +19,30 @@
 
 		@*  Doktorlari CEKİYORUZ  *@
 		<div class="form-group">
+
 			<label asp-for="DoktorId" class="p-0">Doktorlar</label>
-			<select asp-for="DoktorId" asp-items="ViewBag.DoktorList" name="DoktorId" class="form-select">
+			<select id="DoctorList" asp-for="DoktorId" asp-items="ViewBag.DoktorList" name="DoktorId" class="form-select">
+				<option>Doktor Seçiniz</option>
+			</select>
+
+		</div>
+		@*  Doktorlar SAAT CEKİYOZ  *@
+		
+		 <div class="form-group">
+			
+			<select id="StateList" class="form-select">
+				<option value="-1" >Calisma Saati</option>
 			</select>
 		</div> 
+		@*  Doktorlar SAAT CEKİYOZ  *@
 		
-		<div class="mb-3  form-group"
-		<label asp-for="Tarih">Randevu Tarihi</label>
-		<input asp-for="Tarih"  class="form-control">
-		<span asp-validation-for="Tarih" class="text-danger"></span>
+		</br>
+		
+
+		<div class="mb-3 form-group">
+			<label asp-for="Tarih">Randevu Tarihi</label>
+			<input id="Tarih" asp-for="Tarih" class="form-control" type="date" min="yyyy-MM-dd" value="yyyy-MM-dd" max="yyyy-MM-dd">
+			<span asp-validation-for="Tarih" class="text-danger"></span>
 		</div>
 
 	
@@ -54,9 +69,44 @@
 
 	</div>
 
-
-
-
+	
 
 
 </form>
+@section Scripts
+{
+		
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			$('#DoctorList').change(function () {
+				var doktorId = $(this).val();
+				$.ajax({
+					url: '/Randevu/LoadState',
+					type: 'GET',
+					data: { doktorId: doktorId }, // Değişken adını düzelt
+					success: function (result) {
+						var saatListesi = $('#StateList'); // Calisma Saati dropdown listesi
+
+						saatListesi.empty(); // Önceki içeriği temizle
+						saatListesi.append($('<option></option>').val("-1").text("Çalışma Saati Seçiniz"));
+
+						$.each(result, function (index, item) {
+							saatListesi.append($('<option></option>').val(item.id).text(item.saat));
+						});
+					},
+					error: function () {
+						console.error('İstek başarısız oldu.');
+					}
+				});
+			});
+
+
+		});
+	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		var today = new Date().toISOString().split('T')[0];
+		document.getElementById("Tarih").min = today;
+	</script>
+}

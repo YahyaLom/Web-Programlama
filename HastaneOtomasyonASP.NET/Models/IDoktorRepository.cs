@@ -4,5 +4,6 @@
 	{
 		void Guncelle(Doktor doktor);
 		void Kaydet();
+		ICollection<CalismaSaati> GetDoktorCalismaSaatleri(int doktorId);//DOKTOR CALISMA SAATLERI GET
 	}
 }

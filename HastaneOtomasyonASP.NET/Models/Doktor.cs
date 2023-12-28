@@ -13,19 +13,19 @@ namespace HastaneOtomasyonASP.NET.Models
 		[Required]
 		public string Soyad { get; set; }
 
-		[Required(ErrorMessage="Doktor Alanı Boş Bırakılamaz.")]
+        [Required(ErrorMessage="Doktor Alanı Boş Bırakılamaz.")]
 		[MaxLength(25)]
 		[DisplayName("Doktor Alanı")]
 		public string Alan { get; set; }//acılır pencere ile hasta secebilsin
 		[ValidateNever]
 		public string ResimURL { get; set; }
 
+		[Required]
+		[DisplayName("Çalışma Saatleri")]
+		[ValidateNever]
 
-		//[ValidateNever]//validation yapmasın
-		//public int HastaId {  get; set; }
-		//[ForeignKey("HastaId")]
-		//[ValidateNever]//validation yapmasın
-		//public Hasta Hasta { get; set; }
+		public ICollection<CalismaSaati>? CalismaSaatleri { get; set; }
+
 
 	}
 }
