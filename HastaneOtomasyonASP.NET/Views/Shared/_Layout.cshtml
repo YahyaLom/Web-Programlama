@@ -41,18 +41,53 @@
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Polikinlik" asp-action="Index">Polikinlikler</a>
                         </li>
+                       @*  LOCALIZATION *@
+                        <li class="nav-item">
 
-                      @*     //dropdown 
-                        <li class="nav-item dropdown  data-bs-target=" #navbarColor01" aria-controls= ="navbarColor01" ">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown">
+                                    Languages
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a   
+                                            asp-controller="Home"
+                                            asp-action="ChangeLanguage"
+                                            asp-route-culture="en-US"
+                                            class="dropdown-item">
+                                            <i class="flag-icon flag-icon-gb"></i>English
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a asp-controller="Home"
+                                           asp-action="ChangeLanguage"
+                                           asp-route-culture="fr-FR"
+                                           class="dropdown-item">
+                                           <i class="flag-icon flag-icon-gb"></i>French
+                                        </a>
+
+                                    </li>
+
+                                    <li>
+                                        <a asp-controller="Home"
+                                           asp-action="ChangeLanguage"
+                                           asp-route-culture="tr-TR"
+                                           class="dropdown-item">
+                                            <i class="flag-icon flag-icon-gb"></i>Türkçe
+                                        </a>
+                                    </li>
+
+
+
+                                </ul>
+
                             </div>
-                        </li> *@
+
+
+                        </li>
+
+                     
 
 
                     </ul>

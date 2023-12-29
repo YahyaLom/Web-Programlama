@@ -17,9 +17,13 @@ namespace HastaneOtomasyonASP.NET.Models
 			_uygulamaDbContext.Update(randevu);
 		}
 
+		
+
 		public void Kaydet()
 		{
 			_uygulamaDbContext.SaveChanges();
 		}
+
+
 	}
 }

@@ -1,6 +1,8 @@
 ﻿@model Randevu
 <h2>Randevu Ekleme Sayfasi</h2>
 
+
+
 <form method="post">
 
 
@@ -26,15 +28,19 @@
 			</select>
 
 		</div>
-		@*  Doktorlar SAAT CEKİYOZ  *@
-		
+
+
+		@*  Doktorlar SAAT CEKİYOZ
+		  *@
+
 		 <div class="form-group">
-			
-			<select id="StateList" class="form-select">
-				<option value="-1" >Calisma Saati</option>
+			<label asp-for="RandevuSaati" class="p-0">RandevuSaati</label>
+			<select id="StateList"  asp-for="RandevuSaati"  class="form-select">
+				<option value="-1">Calisma Saati</option>
 			</select>
+
 		</div> 
-		@*  Doktorlar SAAT CEKİYOZ  *@
+
 		
 		</br>
 		
@@ -69,9 +75,6 @@
 
 	</div>
 
-	
-
-
 </form>
 @section Scripts
 {
@@ -92,7 +95,7 @@
 						saatListesi.append($('<option></option>').val("-1").text("Çalışma Saati Seçiniz"));
 
 						$.each(result, function (index, item) {
-							saatListesi.append($('<option></option>').val(item.id).text(item.saat));
+							saatListesi.append($('<option></option>').val(item.saat).text(item.saat));
 						});
 					},
 					error: function () {

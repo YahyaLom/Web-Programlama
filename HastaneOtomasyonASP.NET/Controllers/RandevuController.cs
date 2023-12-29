@@ -2,6 +2,7 @@
 using HastaneOtomasyonASP.NET.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 
 namespace HastaneOtomasyonASP.NET.Controllers
@@ -56,6 +57,15 @@ namespace HastaneOtomasyonASP.NET.Controllers
 
 			});
 			ViewBag.PolikinlikList = PolikinlikList;
+
+
+			IEnumerable<SelectListItem> DoktorCalismaSaatList = _doktorRepository.GetAll().Select(d => new SelectListItem
+			{                                                                                                   //drop-down şeklinde	
+				Text = (d.CalismaSaatleri).ToString(),
+				Value = d.Id.ToString()
+
+			}) ;
+			ViewBag.DoktorCalismaSaatList = DoktorCalismaSaatList;
 
 			return View();
 		}

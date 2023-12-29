@@ -13,6 +13,7 @@ namespace HastaneOtomasyonASP.NET.Models
 
 		public String? Aciklama { get; set; }
 
+		public String RandevuSaati { get; set; }
 
 		//FOREİGN KEY İLİŞİKSİ
 		[ValidateNever]

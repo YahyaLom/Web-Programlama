@@ -2,6 +2,14 @@
 
 <h1>Randevu Index</h1>
 
+@if (@TempData["basarili"] != null)
+{
+	<div class="alert alert-dismissible alert-success">
+		<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		<strong>Tebrikler!</strong> <a href="#" class="alert-link">@TempData["basarili"]</a>.
+	</div>
+}
+
 
 <div class="row">
 	
@@ -37,6 +45,11 @@
 				<th>
 					Randevu Tarihi
 				</th>
+
+				<th>
+					Randevu Saati
+				</th>
+
 
 				<th>
 					Açıklama
@@ -75,6 +88,13 @@
 								@randevu.Tarih
 								</th>
 
+
+								<th>
+									@randevu.RandevuSaati
+
+								</th>
+
+
 								<th>
 								@randevu.Aciklama
 								</th>
@@ -82,7 +102,7 @@
 								
 
 								<th>
-									<a asp-controller="Hasta" asp-action="Guncelle" asp-route-id=@randevu.Id class="btn btn-outline-success">Güncelle</a>
+									<a asp-controller="Randevu" asp-action="Guncelle" asp-route-id=@randevu.Id class="btn btn-outline-success">Güncelle</a>
 
 								</th>
 
@@ -90,7 +110,7 @@
 
 
 								<th>
-									<a asp-controller="Hasta" asp-action="Sil" asp-route-id="@randevu.Id" class="btn btn-outline-primary">Sİl</a>
+									<a asp-controller="Randevu" asp-action="Sil" asp-route-id="@randevu.Id" class="btn btn-outline-primary">Sİl</a>
 
 								</th>
 
