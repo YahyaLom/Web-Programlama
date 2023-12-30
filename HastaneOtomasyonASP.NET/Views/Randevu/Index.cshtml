@@ -1,4 +1,5 @@
-﻿@model List<Randevu>
+﻿@using HastaneOtomasyonASP.NET.Utility;
+@model List<Randevu>
 
 <h1>Randevu Index</h1>
 
@@ -55,13 +56,25 @@
 					Açıklama
 				</th>
 
-				<th>
-						@* guncelle *@
-				</th>
 
-				<th>
-						@* sil *@
-				</th>
+					@if (User.IsInRole(UserRoles.Role_Admin))
+					{
+							<th>
+								@* guncelle *@
+							</th>
+
+							<th>
+								@* sil *@
+							</th>
+
+					}
+					else
+					{
+
+
+					}
+
+			
 		</thead>
 		<tbody>
 					@foreach (var randevu in Model)
@@ -100,21 +113,28 @@
 								</th>
 
 								
+								@if (User.IsInRole(UserRoles.Role_Admin))
+								{
+												<th>
+												<a asp-controller="Randevu" asp-action="Guncelle" asp-route-id=@randevu.Id class="btn btn-outline-success">Güncelle</a>
 
-								<th>
-									<a asp-controller="Randevu" asp-action="Guncelle" asp-route-id=@randevu.Id class="btn btn-outline-success">Güncelle</a>
-
-								</th>
-
-
-
-
-								<th>
-									<a asp-controller="Randevu" asp-action="Sil" asp-route-id="@randevu.Id" class="btn btn-outline-primary">Sİl</a>
-
-								</th>
+											</th>
 
 
+
+
+											<th>
+												<a asp-controller="Randevu" asp-action="Sil" asp-route-id="@randevu.Id" class="btn btn-outline-primary">Sİl</a>
+
+											</th>
+								}
+								else
+								{
+									
+
+
+								}
+							
 							</tr>
 
 					}

@@ -2,7 +2,9 @@
 using HastaneOtomasyonASP.NET.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
+
 
 namespace HastaneOtomasyonASP.NET.Controllers
 {
@@ -16,7 +18,82 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			_localization = localization;
 		}
 
-		public IActionResult Index()
+        public async Task<IActionResult> API()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://dummyjson.com/todos");
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var todoList = JsonConvert.DeserializeObject<TodoList>(jsonString);
+
+            var filteredTodos = todoList.todos.Where(todo => todo.id % 2 == 0).ToList();
+
+
+            return View(filteredTodos);
+        }
+
+
+        public async Task<IActionResult> API2()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://dummyjson.com/todos");
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var todoList = JsonConvert.DeserializeObject<TodoList>(jsonString);
+
+            var filteredTodos = todoList.todos.Where(todo => todo.userId%2==1).ToList();
+
+
+            return View(filteredTodos);
+        }
+
+
+        public async Task<IActionResult> API3()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://dummyjson.com/todos");
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var todoList = JsonConvert.DeserializeObject<TodoList>(jsonString);
+
+
+
+            return View(todoList.todos);
+        }
+       
+
+        public async Task<IActionResult> API4()
+        {
+            // EndpointController sınıfından bir örnek oluştur
+
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:7139/api/Api");
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var hastalar = JsonConvert.DeserializeObject<List<Hasta>>(jsonString);
+
+            // LINQ sorgusu ile id değeri çift olan hastaları filtrele
+            var idCiftOlanHastalar = hastalar.Where(hasta => hasta.Id % 2 == 0).ToList();
+
+            return View(idCiftOlanHastalar);
+        }
+
+
+
+
+
+
+
+
+        public IActionResult Index()
 		{
 			ViewBag.Welcome = _localization.Getkey("Welcome").Value;
 			var currentCulture = Thread.CurrentThread.CurrentCulture.Name;

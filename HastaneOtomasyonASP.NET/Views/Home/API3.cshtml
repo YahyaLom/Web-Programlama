@@ -1,0 +1,23 @@
+﻿@model List<TodoItem>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Todo</th>
+            <th>Completed</th>
+            <th>User ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.todo</td>
+                <td>@(item.completed ? "Completed" : "Not Completed")
+                <td>@item.userId</td>
+            </tr>
+        }
+    </tbody>
+</table>

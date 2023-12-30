@@ -1,0 +1,25 @@
+﻿@model List<Hasta>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Telefon</th>
+            <th>Açıklama</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hasta in Model)
+        {
+            <tr>
+                <td>@hasta.Id</td>
+                <td>@hasta.Ad</td>
+                <td>@hasta.Soyad</td>
+                <td>@hasta.Telefon</td>
+                <td>@hasta.Aciklama</td>
+            </tr>
+        }
+    </tbody>
+</table>

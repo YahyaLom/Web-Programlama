@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,20 +46,26 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 //dependency injection islemleri
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//uygulama Kopru kurduk veri tabaný ile
+//uygulama Kopru kurduk veri tabanï¿½ ile
 builder.Services.AddDbContext<UygulamaDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))) ;
-//DoktorRepository Oluþturmaya yardýcý oluyor
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<UygulamaDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddControllers();///APII
+builder.Services.AddRazorPages();
+
+//DoktorRepository Oluï¿½turmaya yardï¿½cï¿½ oluyor
 builder.Services.AddScoped<IDoktorRepository, DoktorRepository>();
-//HastaRepository Oluþturmaya yardýcý oluyor
+//HastaRepository Oluï¿½turmaya yardï¿½cï¿½ oluyor
 builder.Services.AddScoped<IHastaRepository, HastaRepository>();
-//RandevuRepo Oluþturmaya yardýcý oluyor
+//RandevuRepo Oluï¿½turmaya yardï¿½cï¿½ oluyor
 builder.Services.AddScoped<IRandevuRepository,RandevuRepository>();
-//RandevuRepo Oluþturmaya yardýcý oluyor
+//RandevuRepo Oluï¿½turmaya yardï¿½cï¿½ oluyor
 builder.Services.AddScoped<IPolikinlikRepository, PolikinlikRepository>();
-//CalismaSaati Repo Oluþturmaya yardýcý oluyor
+//CalismaSaati Repo Oluï¿½turmaya yardï¿½cï¿½ oluyor
 builder.Services.AddScoped<ICalismaSaatiRepository, CalismaSaatiRepository>();
-
-
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
@@ -77,8 +85,12 @@ app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocal
 
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.MapRazorPages();
+
 
 app.MapControllerRoute(
 	name: "default",

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using HastaneOtomasyonASP.NET.Utility;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,78 +20,99 @@
                 </button>
                 <div class="navbar-collapse collapse show" id="navbarColor01" style="">
                     <ul class="navbar-nav  flex-grow-1">
+
+
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">İletişim</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Doktor" asp-action="Index">Doktor Yönetimi(Admin)</a>
-                        </li>
+                        @if (User.IsInRole(UserRoles.Role_Admin) || User.IsInRole(UserRoles.Role_Hasta))
+                        {
+                            
+                       
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Doktor" asp-action="Index">Doktorlar</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Hasta" asp-action="Index">Hasta Yönetimi(Admin)</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Hasta" asp-action="Index">Hasta Bilgileri</a>
+                            </li>
 
 
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Randevu" asp-action="Ekle">Randevu Oluştur</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Randevu" asp-action="Ekle">Randevu Oluştur</a>
+                            </li>
 
+
+                        }
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Polikinlik" asp-action="Index">Polikinlikler</a>
                         </li>
-                       @*  LOCALIZATION *@
                         <li class="nav-item">
-
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown">
-                                    Languages
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a   
-                                            asp-controller="Home"
-                                            asp-action="ChangeLanguage"
-                                            asp-route-culture="en-US"
-                                            class="dropdown-item">
-                                            <i class="flag-icon flag-icon-gb"></i>English
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a asp-controller="Home"
-                                           asp-action="ChangeLanguage"
-                                           asp-route-culture="fr-FR"
-                                           class="dropdown-item">
-                                           <i class="flag-icon flag-icon-gb"></i>French
-                                        </a>
-
-                                    </li>
-
-                                    <li>
-                                        <a asp-controller="Home"
-                                           asp-action="ChangeLanguage"
-                                           asp-route-culture="tr-TR"
-                                           class="dropdown-item">
-                                            <i class="flag-icon flag-icon-gb"></i>Türkçe
-                                        </a>
-                                    </li>
-
-
-
-                                </ul>
-
-                            </div>
-
-
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="API">API</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="API2">API2</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="API3">API3</a>
+                        </li>
+
+                       
                      
+                    </ul>
+                    @*  LOCALIZATION *@
+                    <ul class="nav-item">
+
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown">
+                                Languages
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a asp-controller="Home"
+                                       asp-action="ChangeLanguage"
+                                       asp-route-culture="en-US"
+                                       class="dropdown-item">
+                                        <i class="flag-icon flag-icon-gb"></i>English
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a asp-controller="Home"
+                                       asp-action="ChangeLanguage"
+                                       asp-route-culture="fr-FR"
+                                       class="dropdown-item">
+                                        <i class="flag-icon flag-icon-gb"></i>French
+                                    </a>
+
+                                </li>
+
+                                <li>
+                                    <a asp-controller="Home"
+                                       asp-action="ChangeLanguage"
+                                       asp-route-culture="tr-TR"
+                                       class="dropdown-item">
+                                        <i class="flag-icon flag-icon-gb"></i>Türkçe
+                                    </a>
+                                </li>
+
+
+
+                            </ul>
+
+                        </div>
 
 
                     </ul>
+
+                    <partial name="_LoginPartial"/>
+
+
                 </div>
             </div>
         </nav>

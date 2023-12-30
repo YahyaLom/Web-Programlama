@@ -1,0 +1,69 @@
+﻿@model HastaneOtomasyonASP.NET.Models.Randevu
+
+@{
+    ViewData["Title"] = "Guncelle";
+}
+
+<h1>Guncelle</h1>
+
+<h4>Randevu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Guncelle">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Tarih" class="control-label"></label>
+                <input asp-for="Tarih" class="form-control" />
+                <span asp-validation-for="Tarih" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aciklama" class="control-label"></label>
+                <input asp-for="Aciklama" class="form-control" />
+                <span asp-validation-for="Aciklama" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="HastaId" class="p-0">Hastalar</label>
+                <select asp-for="HastaId" asp-items="ViewBag.HastaList" name="HastaId" class="form-select">
+                </select>
+            </div>
+            @*  Doktorlari CEKİYORUZ  *@
+            <div class="form-group">
+
+                <label asp-for="DoktorId" class="p-0">Doktorlar</label>
+                <select  id="DoctorList" asp-for="DoktorId" asp-items="ViewBag.DoktorList" name="DoktorId" class="form-select">
+                    <option>Doktor Seçiniz</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="RandevuSaati" class="p-0">RandevuSaati</label>
+                <select id="StateList" asp-for="RandevuSaati" class="form-select">
+                    <option value="-1">Calisma Saati</option>
+                </select>
+
+            </div>
+            @*  Polikinlikleri CEKİYORUZ  *@
+            <div class="form-group">
+                <label asp-for="PolikinlikId" class="p-0">Polikinlik</label>
+                <select asp-for="PolikinlikId" asp-items="ViewBag.PolikinlikList" class="disabled" class="form-select">
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Randevu" asp-action="Index" class="btn btn-outline-primary style="width:250px">
+        Randuvular Listesi
+    </a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

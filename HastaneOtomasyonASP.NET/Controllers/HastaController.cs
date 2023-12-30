@@ -1,4 +1,5 @@
 ﻿using HastaneOtomasyonASP.NET.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HastaneOtomasyonASP.NET.Controllers
@@ -13,13 +14,15 @@ namespace HastaneOtomasyonASP.NET.Controllers
 
 			_hastaRepository = context;
 		}
-
+		[Authorize(Roles = "Admin,Hasta")]
 		public IActionResult Index()
 		{
 			List<Hasta> objHastaList = _hastaRepository.GetAll().ToList();//veritabanına _uygulamadbcontex ile baglanıp doktorlar listesi alıyoruz.
 			return View(objHastaList);//view'ev Hasta Listesi gönderiyoruz.
 		}
 
+
+		[Authorize(Roles = "Admin")]
 		public IActionResult Ekle()
 		{
 			return View();
@@ -27,6 +30,7 @@ namespace HastaneOtomasyonASP.NET.Controllers
 
 		//formdan verileri http post ile alıyoruz ve buraya veriler geliyor
 		//veriler Doktor turunden nesne
+		[Authorize(Roles = "Admin")]
 		[HttpPost]
 		public IActionResult Ekle(Hasta hasta)
 		{
@@ -42,7 +46,7 @@ namespace HastaneOtomasyonASP.NET.Controllers
 
 		}
 
-
+		[Authorize(Roles = "Admin")]
 		public IActionResult Guncelle(int? id)
 		{
 			if (id == null || id == 0)
@@ -69,7 +73,7 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			}
 			return View();
 		}
-
+		[Authorize(Roles = "Admin")]
 		public IActionResult Sil(int? id)//index.cshtml asp-route-id=@doktor.Id ile id degeri alıyoruz
 		{
 			if (id == null || id == 0)
@@ -83,6 +87,7 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			}
 			return View(hastaVt);//doktorVt nesnemizi view'e gönderdik
 		}
+		[Authorize(Roles = "Admin")]
 		[HttpPost, ActionName("Sil")]
 		public IActionResult SilPOST(int? id)
 		{

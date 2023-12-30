@@ -1,4 +1,5 @@
-﻿@model List<Hasta>
+﻿@using HastaneOtomasyonASP.NET.Utility;
+@model List<Hasta>
 <h1>Hastalar Sayfasi</h1>
 
 @if (@TempData["basarili"]!=null)
@@ -42,14 +43,23 @@
 				<th>
 					Açıklama
 				</th>
+				@if (User.IsInRole(UserRoles.Role_Admin))
+				{
+							<th>
+						@* guncelle *@
+						</th>
 
-				<th>
-					@* guncelle *@
-				</th>
+						<th>
+						@* ekle *@
+						</th>
 
-				<th>
-					@* ekle *@
-				</th>
+				}
+				else
+				{
+
+					
+				}
+
 		</thead>
 		<tbody>
 				@foreach (var hasta in Model)
@@ -75,19 +85,30 @@
 							@hasta.Aciklama
 							</th>
 							
+						@if (User.IsInRole(UserRoles.Role_Admin))
+						{
+									<th>
+										<a asp-controller="Hasta" asp-action="Guncelle" asp-route-id=@hasta.Id class="btn btn-outline-success">Güncelle</a>
 
-							<th>
-								<a asp-controller="Hasta" asp-action="Guncelle" asp-route-id=@hasta.Id class="btn btn-outline-success">Güncelle</a>
+									</th>
 
-							</th>
+
+
+
+									<th>
+										<a asp-controller="Hasta" asp-action="Sil" asp-route-id="@hasta.Id" class="btn btn-outline-primary">Sİl</a>
+
+									</th>
+
+						}
+						else
+						{
+
+											
+						}
 
 
 							
-
-							<th>
-								<a asp-controller="Hasta" asp-action="Sil" asp-route-id="@hasta.Id" class="btn btn-outline-primary">Sİl</a>
-								
-							</th>
 
 
 						</tr>
@@ -105,10 +126,17 @@
 	<div class="row pt-3 pb-2">
 
 		<div>
-			<div class="d-grid gap-2">
-				<a asp-controller="Hasta" asp-action="Ekle" class="btn btn-lg btn-outline-primary" type="button"> Hasta Ekle  </a>
-			</div>
 
+			@if (User.IsInRole(UserRoles.Role_Admin))
+			{
+					<div class="d-grid gap-2">
+				<a asp-controller="Hasta" asp-action="Ekle" class="btn btn-lg btn-outline-primary" type="button"> Hasta Ekle  </a>
+				</div>
+
+
+			}
+
+		
 		</div>
 
 

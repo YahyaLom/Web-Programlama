@@ -1,4 +1,5 @@
-﻿@model List<Polikinlik>
+﻿@using HastaneOtomasyonASP.NET.Utility;
+@model List<Polikinlik>
 
 
 @if (@TempData["basarili"] != null)
@@ -29,14 +30,23 @@
 					Adres
 				</th>
 
-
+			@if (User.IsInRole(UserRoles.Role_Admin))
+			{
 				<th>
-				@* guncelle *@
+							@* guncelle *@
 				</th>
 
 				<th>
-				@* sil *@
+							@* ekle *@
 				</th>
+
+			}
+			else
+			{
+				<th>
+							@* detay *@
+				</th>
+			}
 		</thead>
 		<tbody>
 			@foreach (var polikinlik in Model)
@@ -56,20 +66,31 @@
 						@polikinlik.Adres
 								</th>
 
-							
+							@if (User.IsInRole(UserRoles.Role_Admin))
+							{
 
-								<th align="center" valign="middle">
-									<a asp-controller="Polikinlik" asp-action="Guncelle" style="width:fit-content" asp-route-id=@polikinlik.Id class="btn btn-outline-success">Güncelle</a>
+									<th align="center" valign="middle">
+										<a asp-controller="Polikinlik" asp-action="Guncelle" style="width:fit-content" asp-route-id=@polikinlik.Id class="btn btn-outline-success">Güncelle</a>
 
-								</th>
-
-
+									</th>
 
 
-								<th align="center" valign="middle">
-										<a asp-controller="Polikinlik" asp-action="Sil"   style="width:fit-content" asp-route-id="@polikinlik.Id" class="btn btn-outline-primary">Sİl</a>
 
-								</th>
+
+									<th align="center" valign="middle">
+										<a asp-controller="Polikinlik" asp-action="Sil" style="width:fit-content" asp-route-id="@polikinlik.Id" class="btn btn-outline-primary">Sİl</a>
+
+									</th>
+							}
+							else
+							{
+									<th align="center" valign="middle">
+										<a asp-controller="Polikinlik" asp-action="Detay" style="width:fit-content" asp-route-id="@polikinlik.Id" class="btn btn-outline-info">Detay</a>
+
+									</th>
+
+							}
+
 
 
 					</tr>
@@ -88,9 +109,16 @@
 <div class="row pt-3 pb-2">
 
 	<div>
-		<div class="d-grid gap-2">
-			<a asp-controller="Polikinlik" asp-action="Ekle" class="btn btn-lg btn-outline-primary" type="button">Yeni Polikinlik Ekle</a>
-		</div>
+
+		@if (User.IsInRole(UserRoles.Role_Admin))
+		{
+
+				<div class="d-grid gap-2">
+				<a asp-controller="Polikinlik" asp-action="Ekle" class="btn btn-lg btn-outline-primary" type="button">Yeni Polikinlik Ekle</a>
+			</div>
+		}
+
+	
 
 	</div>
 

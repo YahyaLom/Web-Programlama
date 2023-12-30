@@ -1,4 +1,6 @@
 ﻿using HastaneOtomasyonASP.NET.Models;
+using HastaneOtomasyonASP.NET.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HastaneOtomasyonASP.NET.Controllers
@@ -12,19 +14,20 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			_polikinlikRepository = polikinlikRepository;
 		}
 
-
+		
 		public IActionResult Index()//listeleme
 		{
 			List<Polikinlik>? objPolikinlikList = _polikinlikRepository.GetAll().ToList();
 			return View(objPolikinlikList);
 		}
 
+		[Authorize(Roles =UserRoles.Role_Admin)]
 		public IActionResult Ekle()
 		{
 			return View();
 		}
-
-		[HttpPost]
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        [HttpPost]
 		public IActionResult Ekle(Polikinlik polikinlik)
 		{
 			if (ModelState.IsValid)
@@ -40,8 +43,8 @@ namespace HastaneOtomasyonASP.NET.Controllers
 		}
 
 
-
-		public IActionResult Guncelle(int? id)
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        public IActionResult Guncelle(int? id)
 		{
 			if (id == null || id == 0) return NotFound();//id 0 null kontrolü
 			Polikinlik? polikinlik = _polikinlikRepository.Get(u => u.Id == id);//parametre id eşit olan id'yi getir
@@ -52,8 +55,8 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			return View(polikinlik);
 		}
 
-
-		[HttpPost]
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        [HttpPost]
 		public IActionResult Guncelle(Polikinlik polikinlik)
 		{
 
@@ -68,9 +71,9 @@ namespace HastaneOtomasyonASP.NET.Controllers
 
 		}
 
-		//SİL
-
-		public IActionResult Sil(int? id)
+        //SİL
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        public IActionResult Sil(int? id)
 		{
 			if (id == null || id == 0) return NotFound();//id 0 veya null kontrolü (asp-route-id index.html )
 			Polikinlik? polikinlik = _polikinlikRepository.Get(u => u.Id == id);
@@ -81,8 +84,8 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			return View(polikinlik);
 		}
 
-
-		[HttpPost, ActionName("Sil")]
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        [HttpPost, ActionName("Sil")]
 		public IActionResult SilPOST(int? id)
 		{
 			Polikinlik? polikinlik = _polikinlikRepository.Get(u => u.Id == id);
@@ -94,6 +97,35 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			TempData["basarili"] = "Silme işlemi başarılı.";
 			return RedirectToAction("Index", "Polikinlik");
 
+		}
+
+
+		//detay
+
+
+		public IActionResult Detay(int? id)//index.cshtml asp-route-id=@doktor.Id ile id degeri alıyoruz
+		{
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+			Polikinlik? polikinlikVt = _polikinlikRepository.Get(u => u.Id == id);//uygulamadbcontex veri tabanina gidip doktorlar tablosundan id degerine göre buluyor
+			if (polikinlikVt == null)
+			{
+				return NotFound();
+			}
+			return View(polikinlikVt);//doktorVt nesnemizi view'e gönderdik
+		}
+
+		[HttpPost, ActionName("Detay")]
+		public IActionResult DetayPOST(int? id)
+		{
+			Polikinlik? polikinlik = _polikinlikRepository.Get(u => u.Id == id);
+			if (polikinlik == null) { return NotFound(); }
+			_polikinlikRepository.Sil(polikinlik);//sil
+			_polikinlikRepository.Kaydet();//kaydet
+			TempData["basarili"] = "Silme işlemi başarılı.";//kullaniciya mesaj
+			return RedirectToAction("Index");//listele
 		}
 
 	}

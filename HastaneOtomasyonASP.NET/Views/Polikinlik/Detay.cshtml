@@ -1,0 +1,42 @@
+﻿@model Polikinlik
+<h2>Polikinlik Detay Sayfasi</h2>
+
+<form method="post">
+
+
+
+	<div class="border p-3 mt-5">
+
+		<div class="row pb-3  form-group">
+			<h2 class="text-primary "><strong>Polikinlik Detay</strong> </h2>
+			</hr>
+		</div>
+
+
+		<div class="mb-3  form-group"
+		<label asp-for="Ad"></label>
+		<input asp-for="Ad" disabled class="form-control">
+
+		</div>
+
+		<div class="mb-3  form-group"
+		<label asp-for=Adres></label>
+		<input asp-for="Adres" disabled class="form-control">
+
+		</div>
+
+		<br />
+		
+
+		<a asp-controller="Polikinlik" asp-action="Index" class="btn btn-outline-info style="width:250px">
+			Polikinlik Listesine Dön
+		</a>
+
+	</div>
+
+
+
+
+
+
+</form>

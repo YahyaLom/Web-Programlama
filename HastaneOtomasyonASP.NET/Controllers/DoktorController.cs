@@ -1,7 +1,9 @@
 ﻿using HastaneOtomasyonASP.NET.Models;
 using HastaneOtomasyonASP.NET.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace HastaneOtomasyonASP.NET.Controllers
 {
@@ -17,12 +19,8 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			_webHostEnvironment = webHostEnvironment;
 		}
 
-		//public IActionResult Index()
-		//{
-		//	List<Doktor>objDoktorList= _doktorRepository.GetAll().ToList();//veritabanına _uygulamadbcontex ile baglanıp doktorlar listesi alıyoruz.
-		//	return View(objDoktorList);//view'ev Dokorlar Listesi gönderiyoruz.
-		//}
 
+        [Authorize(Roles ="Admin,Hasta")]
 		public IActionResult Index()
 		{
 			List<Doktor> objDoktorList = _doktorRepository.GetAll().ToList();//veritabanına _uygulamadbcontex ile baglanıp doktorlar listesi alıyoruz.//doktorun tum ozellikler objDoktorList içerir
@@ -33,8 +31,8 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			return View(objDoktorList);//view'ev Dokorlar Listesi gönderiyoruz.
 		}
 
-
-		public IActionResult EkleGuncelle(int? id)
+        [Authorize(Roles=UserRoles.Role_Admin)]
+        public IActionResult EkleGuncelle(int? id)
 		{
 			//comboox hasta id seçiliyo
 			IEnumerable<SelectListItem>  DoktorList = _doktorRepository.GetAll().Select(k => new SelectListItem
@@ -65,11 +63,12 @@ namespace HastaneOtomasyonASP.NET.Controllers
 
 		}
 
-		
 
-		//formdan verileri http post ile alıyoruz ve buraya veriler geliyor
-		//veriler Doktor turunden nesne
-		[HttpPost]
+
+        //formdan verileri http post ile alıyoruz ve buraya veriler geliyor
+        //veriler Doktor turunden nesne
+        [Authorize(Roles = UserRoles.Role_Admin)]
+        [HttpPost]
 		public IActionResult EkleGuncelle(Doktor doktor,IFormFile? file)
 		{
 			if (ModelState.IsValid)
@@ -106,9 +105,37 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			
 		}
 
+
 		
+		public IActionResult Detay(int? id)//index.cshtml asp-route-id=@doktor.Id ile id degeri alıyoruz
+		{
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+			Doktor? doktorVt = _doktorRepository.Get(u => u.Id == id);//uygulamadbcontex veri tabanina gidip doktorlar tablosundan id degerine göre buluyor
+			if (doktorVt == null)
+			{
+				return NotFound();
+			}
+			return View(doktorVt);//doktorVt nesnemizi view'e gönderdik
+		}
+		
+		[HttpPost, ActionName("Sil")]
+		public IActionResult DetayPOST(int? id)
+		{
+			Doktor? doktor = _doktorRepository.Get(u => u.Id == id);
+			if (doktor == null) { return NotFound(); }
+			_doktorRepository.Sil(doktor);//sil
+			_doktorRepository.Kaydet();//kaydet
+			TempData["basarili"] = "Silme işlemi başarılı.";//kullaniciya mesaj
+			return RedirectToAction("Index");//listele
+		}
 
 
+
+
+		[Authorize(Roles = UserRoles.Role_Admin)]
 		public IActionResult Sil(int? id)//index.cshtml asp-route-id=@doktor.Id ile id degeri alıyoruz
 		{
 			if (id == null || id == 0)
@@ -122,6 +149,7 @@ namespace HastaneOtomasyonASP.NET.Controllers
 			}
 			return View(doktorVt);//doktorVt nesnemizi view'e gönderdik
 		}
+		[Authorize(Roles = UserRoles.Role_Admin)]
 		[HttpPost,ActionName("Sil")]
 		public IActionResult SilPOST(int? id)
 		{

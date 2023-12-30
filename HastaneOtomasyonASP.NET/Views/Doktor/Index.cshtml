@@ -1,4 +1,5 @@
-﻿@model List<Doktor>
+﻿@using HastaneOtomasyonASP.NET.Utility;
+@model List<Doktor>
 <h1>Doktorlar Sayfasi</h1>
 
 @if (@TempData["basarili"]!=null)
@@ -45,14 +46,26 @@
 				<th>
 					Calisma Saatleri
 				</th>
+				@if (User.IsInRole(UserRoles.Role_Admin))
+				{
+						<th>
+						@* guncelle *@
+					</th>
 
-				<th>
-					@* guncelle *@
-				</th>
+					<th>
+						@* ekle *@
+					</th>
 
-				<th>
-					@* ekle *@
-				</th>
+				}
+				else
+				{
+
+						<th>
+						@* detay *@
+						</th>
+
+				}
+				
 		</thead>
 		<tbody>
 				@foreach (var doktor in Model)
@@ -105,19 +118,26 @@
 									
 							</th>
 
-							<th align="center" valign="middle">
-								<a asp-controller="Doktor" asp-action="EkleGuncelle" style="width:fit-content" asp-route-id=@doktor.Id class="btn btn-outline-success">Güncelle</a>
-
-							</th>
-
-
+							@if (User.IsInRole(UserRoles.Role_Admin))
+							{
 							
+										<th align="center" valign="middle">
+										<a asp-controller="Doktor" asp-action="EkleGuncelle" style="width:fit-content" asp-route-id=@doktor.Id class="btn btn-outline-success">Güncelle</a>
+										</th>
 
-							<th align="center" valign="middle">
+									<th align="center" valign="middle">
 									<a asp-controller="Doktor" asp-action="Sil"   style="width:fit-content" asp-route-id="@doktor.Id" class="btn btn-outline-primary">Sİl</a>
-								
-							</th>
+									</th>
 
+							}
+							else
+							{
+										<th align="center" valign="middle">
+											<a asp-controller="Doktor" asp-action="Detay"   style="width:fit-content" asp-route-id="@doktor.Id" class="btn btn-outline-info">Detay</a>
+											</th>
+							}
+
+						
 
 						</tr>
 
@@ -136,9 +156,17 @@
 	<div class="row pt-3 pb-2">
 
 		<div>
-			<div class="d-grid gap-2">
+
+			@if (User.IsInRole(UserRoles.Role_Admin))
+			{
+
+				<div class="d-grid gap-2">
 				<a asp-controller="Doktor" asp-action="EkleGuncelle" class="btn btn-lg btn-outline-primary" type="button"> Doktor Ekle  </a>
-			</div>
+				</div>
+
+			}
+
+			
 
 		</div>
 
