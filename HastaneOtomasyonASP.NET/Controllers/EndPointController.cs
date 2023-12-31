@@ -29,9 +29,16 @@ namespace HastaneOtomasyonASP.NET.Controllers
         
         }
 
+
+
         public IActionResult Index() 
         {
             return View();
-        }   
+        }
+
+
     }
 }
+
+
+

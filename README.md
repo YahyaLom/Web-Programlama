@@ -51,9 +51,16 @@ listeleniyor
  ![image](https://github.com/MustfaOzcan/HastaneOtomasyonASP.NET/assets/103693735/c4f84e81-1552-4d84-83f6-2319e7c0a1e6)
 
 
+
+ 
+
+
  <h1>Veri Tabanı (SQL Server) </h1>
 
 
  ![image](https://github.com/MustfaOzcan/HastaneOtomasyonASP.NET/assets/103693735/512d493b-64e6-466a-b2c7-27326854c969)
 
 
+
+ <h1> Proje Raporu: </h1>
+[WebProgramlama.docx](https://github.com/MustfaOzcan/HastaneOtomasyonASP.NET/files/13746392/WebProgramlama.docx)
